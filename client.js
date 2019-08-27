@@ -39,5 +39,47 @@ const employees = [
 
 // This is not a race. Everyone on your team should understand what is happening.
 // Ask questions when you don't.
+let qualityBonus = 0;
+let seniorityBonus = 0; 
+let incomeBonusAdjustment = 0;
+let totalBonus = 0;
 
-console.log( employees );
+function individualBonusCalc( employees ){
+  for (let i = 0; i < employees.length; i++){
+    let employeeNumberlength = employees[i].employeeNumber;
+      if( employeeNumberlength.length === 4 ){
+        seniorityBonus = .05;
+     console.log('Yay I get more money') ;
+    } else{
+        seniorityBonus = 0;
+    }
+   }
+  for (let i = 0; i < employees.length; i++){
+    if( employees[i].reviewRating <= 2  ){
+      qualityBonus = 0;
+  } else if( employees[i].reviewRating == 3  ){
+    qualityBonus = .04;
+  } else if( employees[i].reviewRating == 4  ){
+    qualityBonus = .06;
+  } else if( employees[i].reviewRating == 5  ){
+    qualityBonus = .10;
+    }
+  }
+for (let i = 0; i < employees.length; i++){
+  if( employees[i].salary > 65000 ){
+    incomeBonusAdjustment = -.01;
+  } else {
+    incomeBonusAdjustment = 0;
+    }
+  }
+  totalBonusSum(qualityBonus,seniorityBonus, incomeBonusAdjustment);
+}
+
+
+function totalBonusSum( bonusA, bonusB, bonusC ){
+  totalBonus = bonusA + bonusB + bonusC;
+}
+
+
+
+console.log(individualBonusCalc(employees ));
