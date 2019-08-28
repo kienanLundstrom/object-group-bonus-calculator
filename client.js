@@ -31,55 +31,63 @@ const employees = [
   }
 ];
 
-// YOU SHOULD NOT NEED TO CHANGE ANYTHING ABOVE THIS POINT
+// // YOU SHOULD NOT NEED TO CHANGE ANYTHING ABOVE THIS POINT
 
-// Take small steps! Don't write a for loop and two functions that do all of the calculations right away.
-// This problem is massive! Break the problem down. Use the debugger.
-// What is the fewest lines of code I can write and test to get just a little closer?
+// // Take small steps! Don't write a for loop and two functions that do all of the calculations right away.
+// // This problem is massive! Break the problem down. Use the debugger.
+// // What is the fewest lines of code I can write and test to get just a little closer?
 
-// This is not a race. Everyone on your team should understand what is happening.
-// Ask questions when you don't.
-let qualityBonus = 0;
-let seniorityBonus = 0; 
-let incomeBonusAdjustment = 0;
-let totalBonus = 0;
+// // This is not a race. Everyone on your team should understand what is happening.
+// // Ask questions when you don't.
 
-function individualBonusCalc( employees ){
-  for (let i = 0; i < employees.length; i++){
-    let employeeNumberlength = employees[i].employeeNumber;
-      if( employeeNumberlength.length === 4 ){
-        seniorityBonus = .05;
-     console.log('Yay I get more money') ;
-    } else{
-        seniorityBonus = 0;
-    }
-   }
-  for (let i = 0; i < employees.length; i++){
-    if( employees[i].reviewRating <= 2  ){
-      qualityBonus = 0;
-  } else if( employees[i].reviewRating == 3  ){
-    qualityBonus = .04;
-  } else if( employees[i].reviewRating == 4  ){
-    qualityBonus = .06;
-  } else if( employees[i].reviewRating == 5  ){
-    qualityBonus = .10;
-    }
+// console.log(individualBonusCalc(employees ));
+
+function getBonus (employeeInput){
+  let bonus = 0
+  switch (true){
+      case (employeeInput.reviewRating <= 2): 
+      bonus = 0;
+      break;
+      case (employeeInput.reviewRating == 3) :
+      bonus = 0.04
+      break;   
+      case (employeeInput.reviewRating == 4) :
+      bonus = 0.06
+      break;
+      case (employeeInput.reviewRating == 5) :
+      bonus = 0.10
+      break; 
   }
-for (let i = 0; i < employees.length; i++){
-  if( employees[i].salary > 65000 ){
-    incomeBonusAdjustment = -.01;
-  } else {
-    incomeBonusAdjustment = 0;
-    }
+  if (employeeInput.employeeNumber.length == 4) {
+      bonus = bonus + 0.05;
+  } 
+  if (employeeInput.annualSalary > 65000) {
+      bonus = bonus - 0.01;
   }
-  totalBonusSum(qualityBonus,seniorityBonus, incomeBonusAdjustment);
+  if (bonus>0.13){
+      bonus = .13
+  } 
+  if (bonus < 0){
+      bonus = 0
+  }
+  
+  return bonus
 }
 
 
-function totalBonusSum( bonusA, bonusB, bonusC ){
-  totalBonus = bonusA + bonusB + bonusC;
+function Employee (employeeInput) {
+  this.name = employeeInput.name;
+  this.bonusPercentage = getBonus(employeeInput);
+  this.totalCompensation = Math.round(employeeInput.annualSalary + employeeInput.annualSalary * this.bonusPercentage);
+  this.totalBonus= Math.round(employeeInput.annualSalary * this.bonusPercentage);
+
 }
 
+let newEmployee = [] ;
 
-
-console.log(individualBonusCalc(employees ));
+for (let i = 0; i < employees.length; i++) {
+//   console.log(employees[i]);
+   let newEmp = new Employee(employees[i]);
+   console.log(newEmp);
+   newEmployee.push(newEmp);
+}
