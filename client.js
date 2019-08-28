@@ -1,3 +1,4 @@
+
 const employees = [
   {
     name: 'Atticus',
@@ -70,7 +71,6 @@ function getBonus (employeeInput){
   if (bonus < 0){
       bonus = 0
   }
-  
   return bonus
 }
 
@@ -78,7 +78,7 @@ function getBonus (employeeInput){
 function Employee (employeeInput) {
   this.name = employeeInput.name;
   this.bonusPercentage = getBonus(employeeInput);
-  this.totalCompensation = Math.round(employeeInput.annualSalary + employeeInput.annualSalary * this.bonusPercentage);
+  this.totalCompensation = Math.round(employeeInput.annualSalary * (1 + this.bonusPercentage));
   this.totalBonus= Math.round(employeeInput.annualSalary * this.bonusPercentage);
 
 }
@@ -86,8 +86,8 @@ function Employee (employeeInput) {
 let newEmployee = [] ;
 
 for (let i = 0; i < employees.length; i++) {
-//   console.log(employees[i]);
    let newEmp = new Employee(employees[i]);
    console.log(newEmp);
    newEmployee.push(newEmp);
 }
+
